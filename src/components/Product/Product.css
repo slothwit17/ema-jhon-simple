@@ -8,11 +8,13 @@
 .product-img{
     margin-right: 20px;
 }
-.product-content h4{
+
+.product-content h4 a{
     color: rgb(34, 34, 255);
     font-weight: 400;
     margin: 18px 0;
     padding-bottom: 5px;
+    text-decoration: none;
 }
 .product-content p{
     font-weight: 400;
@@ -32,9 +34,12 @@
     margin: 0;
     padding-bottom: 10px;
 }
-.product-content button{
+.main-button{
     padding: 5px 40px;
     background-color: goldenrod;
     border: 1px solid darkslategray;
     border-radius: 5px;
+}
+.svg-inline--fa {
+    margin-right: 10px;
 }

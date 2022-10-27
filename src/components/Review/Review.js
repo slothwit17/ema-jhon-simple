@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { deleteFromDb, getStoredCart } from "../../utilities/fakedb";
+import {
+  clearTheCart,
+  deleteFromDb,
+  getStoredCart,
+} from "../../utilities/fakedb";
 import fakeData from "../../fakeData";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import Cart from "../Cart/Cart";
+import placeOrderImg from "../../images/Port.gif";
 
 const Review = () => {
   const [cart, setCart] = useState([]);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const removeItemHandler = (productKey) => {
     const newCart = cart.filter((pd) => pd.key !== productKey);
     setCart(newCart);
     deleteFromDb(productKey);
+  };
+
+  const handlePlaceOrder = () => {
+    setCart([]);
+    setOrderPlaced(true);
+    clearTheCart();
   };
 
   useEffect(() => {
@@ -23,6 +35,12 @@ const Review = () => {
     });
     setCart(cartProduct);
   }, []);
+
+  //Order place img
+  let placedOder;
+  if (orderPlaced) {
+    placedOder = <img src={placeOrderImg} alt="Your order is placed." />;
+  }
   return (
     <div className="main-container">
       <div className="product-container">
@@ -33,9 +51,14 @@ const Review = () => {
             product={product}
           ></ReviewItem>
         ))}
+        <div style={{ textAlign: "center" }}>{placedOder}</div>
       </div>
       <div className="cart-container">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart}>
+          <button onClick={handlePlaceOrder} className="main-button">
+            Place Order
+          </button>
+        </Cart>
       </div>
     </div>
   );
